@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: srecops-ingress
+  annotations:
+    ingressClassName: nginx
+spec:
+  ingressClassName: nginx
+  #tls:
+  #- hosts:
+  #  - srecops.com
+  #  secretName: srecops-tls
+  rules:
+  - host: "srecops.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: wordpress
+            port:
+              number: 80
+  - host: "www.srecops.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: wordpress
+            port:
+              number: 80
